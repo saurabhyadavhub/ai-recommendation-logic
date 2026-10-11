@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101323">
+  <meta name="description" content="A simple AI recommendation system that matches your interests to relevant content.">
+  <title>InterestAI — Smart Recommendations</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="InterestAI home"><span class="brand-icon">✦</span> Interest<span>AI</span></a>
+    <span class="top-note"><span class="status-dot"></span> CONTENT-BASED AI DEMO</span>
+  </header>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="eyebrow"><span>✧</span> YOUR PERSONAL DISCOVERY ENGINE</div>
+      <h1>Find your next<br><span>favorite thing.</span></h1>
+      <p class="hero-copy">Tell us what you're into. Our recommendation logic matches your interests with relevant ideas, learning resources, and activities.</p>
+      <div class="hero-stats">
+        <div><strong>20</strong><span>INTERESTS</span></div>
+        <div><strong>12</strong><span>DEMO ITEMS</span></div>
+        <div><strong>100%</strong><span>TRANSPARENT LOGIC</span></div>
+      </div>
+    </section>
+    <section class="workspace">
+      <aside class="preferences panel">
+        <div class="section-heading"><div><span class="step">01</span><h2>Your interests</h2></div><span class="count-pill" id="selected-count">0 selected</span></div>
+        <p class="muted">Choose at least one topic to personalize your results.</p>
+        <div class="interest-grid" id="interest-grid">
+          {% for interest in interests %}
+          <label class="interest-option">
+            <input type="checkbox" value="{{ interest.id }}">
+            <span class="interest-emoji">{{ interest.emoji }}</span>
+            <span class="interest-label">{{ interest.label }}</span>
+            <span class="checkmark">✓</span>
+          </label>
+          {% endfor %}
+        </div>
+        <div class="controls">
+          <label class="field-label" for="category">CATEGORY</label>
+          <select id="category">
+            <option>All</option><option>Learning</option><option>Music</option><option>Lifestyle</option><option>Entertainment</option>
+          </select>
+          <label class="field-label" for="limit">NUMBER OF RESULTS <span id="limit-value">6</span></label>
+          <input id="limit" type="range" min="3" max="12" value="6">
+        </div>
+        <div class="action-row">
+          <button class="primary-button" id="recommend-button">Find recommendations <span>↗</span></button>
+          <button class="text-button" id="clear-button" type="button">Clear</button>
+        </div>
+      </aside>
+      <section class="results panel" aria-live="polite">
+        <div class="section-heading result-heading"><div><span class="step">02</span><h2>Picked for you</h2></div><span class="count-pill" id="result-count">6 ideas</span></div>
+        <p class="muted" id="result-intro">Your next discovery is one click away.</p>
+        <div class="results-list" id="results-list">
+          <div class="loading-card"><span class="sparkle">✦</span><h3>Ready when you are</h3><p>Select your interests and let the matching begin.</p></div>
+        </div>
+        <div class="algorithm-note"><span class="note-icon">⌘</span><div><strong>How the AI thinks</strong><p>Recommendations are ranked with Jaccard similarity — a simple, explainable way to compare your selected interests with each item's tags.</p></div></div>
+      </section>
+    </section>
+    <footer><span>INTERESTAI · AI PROJECT 3</span><span>Built for learning · Powered by transparent similarity logic</span></footer>
+  </main>
+</body>
+</html>
